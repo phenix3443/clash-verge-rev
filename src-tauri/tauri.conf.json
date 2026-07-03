@@ -1,5 +1,5 @@
 {
-  "version": "2.3.2",
+  "version": "2.5.2",
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "bundle": {
     "active": true,
@@ -11,7 +11,7 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ],
-    "resources": ["resources", "resources/locales/*"],
+    "resources": ["resources"],
     "publisher": "Clash Verge Rev",
     "externalBin": ["sidecar/verge-mihomo", "sidecar/verge-mihomo-alpha"],
     "copyright": "GNU General Public License v3.0",
@@ -23,7 +23,8 @@
     "beforeBuildCommand": "pnpm run web:build",
     "frontendDist": "../dist",
     "beforeDevCommand": "pnpm run web:dev",
-    "devUrl": "http://localhost:3000/"
+    "devUrl": "http://localhost:3000/",
+    "removeUnusedCommands": true
   },
   "productName": "Clash Verge",
   "identifier": "io.github.clash-verge-rev.clash-verge-rev",
@@ -31,15 +32,12 @@
     "updater": {
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEQyOEMyRjBCQkVGOUJEREYKUldUZnZmbStDeStNMHU5Mmo1N24xQXZwSVRYbXA2NUpzZE5oVzlqeS9Bc0t6RVV4MmtwVjBZaHgK",
       "endpoints": [
-        "https://download.clashverge.dev/https://github.com/clash-verge-rev/clash-verge-rev/releases/download/updater/update-proxy.json",
-        "https://gh-proxy.com/https://github.com/clash-verge-rev/clash-verge-rev/releases/download/updater/update-proxy.json",
-        "https://github.com/clash-verge-rev/clash-verge-rev/releases/download/updater/update.json",
-        "https://download.clashverge.dev/https://github.com/clash-verge-rev/clash-verge-rev/releases/download/updater-alpha/update-alpha-proxy.json",
-        "https://gh-proxy.com/https://github.com/clash-verge-rev/clash-verge-rev/releases/download/updater-alpha/update-alpha-proxy.json",
-        "https://github.com/clash-verge-rev/clash-verge-rev/releases/download/updater-alpha/update-alpha.json"
+        "https://update.hwdns.net/https://github.com/clash-verge-rev/clash-verge-rev/releases/download/updater/update-proxy.json",
+        "https://gh-proxy.org/https://github.com/clash-verge-rev/clash-verge-rev/releases/download/updater/update-proxy.json",
+        "https://github.com/clash-verge-rev/clash-verge-rev/releases/download/updater/update.json"
       ],
       "windows": {
-        "installMode": "basicUi"
+        "installMode": "passive"
       }
     },
     "deep-link": {
@@ -52,8 +50,11 @@
     "security": {
       "capabilities": ["desktop-capability", "migrated"],
       "assetProtocol": {
-        "scope": ["$APPDATA/**", "$RESOURCE/../**", "**"],
-        "enable": true
+        "enable": true,
+        "scope": {
+          "allow": ["**"],
+          "requireLiteralLeadingDot": false
+        }
       },
       "csp": null
     }
